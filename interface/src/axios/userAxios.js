@@ -30,8 +30,35 @@ const loginUser = async (user, loginHandlerCb) => {
             console.log(err)
         }
     }
-    
-}
+};
+
+const registerUser = async (user, loginCbHandler) => {
+    try {
+        let result = await axios({
+            method: "POST",
+            url: URL + "/register",
+            data: user,
+          });
+
+        Swal.fire("Register", result.data.message, "success");
+        loginCbHandler(true)
+    } catch (e) {
+        console.log(e);
+    }
+};
+
+const deleteUser = async (id) => {
+    try {
+        let result = await axios({
+            method: "DELETE",
+            url: URL + "/"+id,
+          });
+
+        Swal.fire("Delete User", result.data.message, "success");
+    } catch (e) {
+        console.log(e);
+    }
+};
 
 const getAllUser = async (cb) => {
     try{
@@ -47,5 +74,5 @@ const getAllUser = async (cb) => {
 }
 
 export {
-    loginUser, getAllUser
+    loginUser, registerUser,getAllUser, deleteUser
 }

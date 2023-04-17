@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import axios from 'axios'
 import {loginUser} from '../axios/userAxios'
+import { Link } from "react-router-dom";
 
 const LoginPage = (props) => {
     const {loginHandlerCb} = props
@@ -65,6 +65,14 @@ const LoginPage = (props) => {
                         </div> */}
                         <button onClick={() => submitLoginHandler()} className="btn btn-primary">Login</button>
                         
+                        <p className="text-center">
+                            Don't have Account?
+                            <Link
+                                className="link-primary text-decoration-none ms-2"
+                                to="/register"
+                            >Register
+                            </Link>
+                        </p>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,11 @@
 import React from "react";
+import { deleteItem } from "../axios/itemAxios";
 
 const ProfileItem = (props) => {
     const {items} = props
+    const deleteHandler = (id) => {
+        deleteItem(id);
+    };
     return (
             <><div>
             <table className='table table-hover table-bordered'>
@@ -14,6 +18,7 @@ const ProfileItem = (props) => {
                         <th>Category</th>
                         <th>UserId</th>
                         <th>BrandId</th>
+                        <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,6 +35,15 @@ const ProfileItem = (props) => {
                                 <td>{category}</td>
                                 <td>{userId}</td>
                                 <td>{brandId}</td>
+                                <td>                
+                                    <button
+                                    type="button"
+                                    id="delete"
+                                    name="delete"
+                                    className="btn btn-danger mt-3 mx-3"
+                                    onClick={() => deleteHandler(id)}>
+                                    Delete
+                                </button></td>
                             </tr>
 
                         );

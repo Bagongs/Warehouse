@@ -1,9 +1,13 @@
 import React from "react";
+import { deleteUser } from "../axios/userAxios";
 
 const ProfileUser = (props) => {
-    const {users} = props
+    const { users } = props
+    const deleteHandler = (id) => {
+        deleteUser(id);
+    };
     return (
-            <><div>
+        <><div>
             <table className='table table-hover table-bordered'>
                 <thead>
                     <tr>
@@ -12,11 +16,12 @@ const ProfileUser = (props) => {
                         <th>Email</th>
                         <th>Photo</th>
                         <th>Status</th>
+                        <th>Option</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users.map((user) => {
-                        const { id, username, email, password, photo, status } = user;
+                        const { id, username, email, photo, status } = user;
                         return (
                             <tr key={id}>
                                 <td>{id}</td>
@@ -26,15 +31,25 @@ const ProfileUser = (props) => {
                                     <img src={photo} width={"20%"}></img>
                                 </td>
                                 <td>{status}</td>
+                                <td>                
+                                    <button
+                                    type="button"
+                                    id="delete"
+                                    name="delete"
+                                    className="btn btn-danger mt-3 mx-3"
+                                    onClick={() => deleteHandler(id)}
+                                >
+                                    Delete
+                                </button></td>
                             </tr>
 
                         );
                     })}
                 </tbody>
-
+                <br></br>
             </table>
         </div>
-        {/* <div>
+            {/* <div>
             <button
                 onClick={() => getUserHandler()}></button>
         </div> */}

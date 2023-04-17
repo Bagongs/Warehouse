@@ -41,8 +41,8 @@ const NavBarMenu = (props) => {
                         Item
                     </Link>
                     <ul className="dropdown-menu">
-                        <li><Link className="dropdown-item" to="#">Add</Link></li>
-                        <li><Link className="dropdown-item" to="#">Edit</Link></li>
+                        <li><Link className="dropdown-item" to="/item/add">Add</Link></li>
+                        <li><Link className="dropdown-item" to="/item/edit/:id">Edit</Link></li>
                         <li><hr className="dropdown-divider"></hr></li>
                         <li><Link className="dropdown-item" to="/item/show" onClick={() => getItemHandler()}>Show</Link></li>
                     </ul>
@@ -52,17 +52,14 @@ const NavBarMenu = (props) => {
                         Brand
                     </Link>
                     <ul className="dropdown-menu">
-                        <li><Link className="dropdown-item" to="#">Add</Link></li>
-                        <li><Link className="dropdown-item" to="#">Edit</Link></li>
+                        <li><Link className="dropdown-item" to="/brand/add">Add</Link></li>
+                        <li><Link className="dropdown-item" to="/brand/edit/:id">Edit</Link></li>
                         <li><hr className="dropdown-divider"></hr></li>
                         <li><Link className="dropdown-item" to="/brand/show" onClick={() => getBrandHandler()}>Show</Link></li>
                     </ul>
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="#">History Items</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link disabled">Disabled</Link>
                     </li>
                     <li className="nav-item">
                     {/* {loginStatus?
