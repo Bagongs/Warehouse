@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import { registerUser } from '../axios/userAxios'
 
 
@@ -13,10 +13,12 @@ const RegisterPage = () => {
 
     const navigation = useNavigate();
 
-    const submitHandler = () => {
+    const submitHandler = (event) => {
+        event.preventDefault()
         registerUser(form, (status) => {
+            console.log(status)
             if (status) {
-                navigation("/users/login");
+                navigation("/");
             }
         });
     };
@@ -88,7 +90,7 @@ const RegisterPage = () => {
                 <button
                     className="btn btn-lg btn-primary btn-block bg-success"
                     type="submit"
-                    onClick={() => submitHandler()}
+                    onClick={(e) => submitHandler(e)}
                 > Sign up</button>
             </form>
         </div>

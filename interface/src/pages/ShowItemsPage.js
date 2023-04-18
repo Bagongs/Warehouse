@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { deleteItem } from "../axios/itemAxios";
 
 const ProfileItem = (props) => {
@@ -35,7 +36,15 @@ const ProfileItem = (props) => {
                                 <td>{category}</td>
                                 <td>{userId}</td>
                                 <td>{brandId}</td>
-                                <td>                
+                                <td>
+                                    <button className="btn">
+                                        <Link
+                                            to={`/item/edit/${id}`}
+                                            className="btn btn-sm btn-warning mt-2 mx-2"
+                                        >
+                                            Edit
+                                        </Link>
+                                    </button>                
                                     <button
                                     type="button"
                                     id="delete"

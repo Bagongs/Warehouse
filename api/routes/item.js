@@ -9,7 +9,7 @@ itemRouter.post('/', authentication, uploadImage,itemController.create)
 itemRouter.put('/attendant/delete/:id', itemController.deleteRequest)
 itemRouter.put('/attendant/update/:id', itemController.updateRequest)
 itemRouter.delete('/:id', itemController.delete)
-itemRouter.put('/:id', itemController.update)
+itemRouter.put('/:id', uploadImage, itemController.update)
 itemRouter.get('/images/:filename', async (req,res)=>{
     try{
         console.log("check")
@@ -24,6 +24,7 @@ itemRouter.get('/images/:filename', async (req,res)=>{
         res.status(500).json(err)
     }
 })
+itemRouter.get('/detail/:id', itemController.getItemById)
 
 module.exports = itemRouter
 

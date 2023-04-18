@@ -27,7 +27,7 @@ const ProfileBrand = (props) => {
                                 <td>
                                     <div className="btn">
                                         <Link
-                                            to={`/brands/edit/${id}`}
+                                            to={`/brand/edit/${id}`}
                                             className="btn btn-sm btn-warning mt-2 mx-2"
                                         >
                                             Edit

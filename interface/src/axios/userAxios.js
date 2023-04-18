@@ -18,7 +18,7 @@ const loginUser = async (user, loginHandlerCb) => {
             })
 
             Swal.fire("Login", result.data.message, "success");
-            const access_token = result.data.access_token
+            const access_token = result.data.tokenData
             localStorage.setItem('access_token', access_token)
             console.log(result.data)
             loginHandlerCb(true)

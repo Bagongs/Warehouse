@@ -2,149 +2,153 @@ import React, { useState, useEffect } from "react";
 import { updateItem, getDetail } from "../axios/itemAxios";
 import { useNavigate, useParams } from "react-router-dom";
 
-const EditItemPage = () => {
-  const [form, setform] = useState({
-    name: "",
-    image: "http://localhost:3000/api/items/images/",
-    receiving: "",
-    category: "",
-    userId: 1,
-    brandId: 1,
-  });
-
-  const navigation = useNavigate();
-  const params = useParams();
-  const { id } = params;
-
-  const detail = () => {
-    getDetail(+id, (response) => {
-      setform({
-        name: response.name,
-        image: response.image,
-        receiving: response.receiving,
-        category: response.category,
-        userId: response.userId,
-        brandId: response.brandId,
-      });
+const EditItemPage = (props) => {
+    
+    const {getItemHandler} = props
+    const [form, setForm] = useState({
+        name: "",
+        receiving: "",
+        category: "",
+        userId: 0,
+        brandId: 0,
     });
-  };
 
-  useEffect(() => {
-    detail();
-  }, []);
+    const [isFormSubmitted, setIsFormSubmitted] = useState(false)
+    const [file, setFile] =useState(null)
 
-  const submitHandler = () => {
-    console.log(form);
-    updateItem(+id, form);
-    navigation("/");
-  };
+    const navigation = useNavigate()
 
-  return (
-    <>
-      <div className="my-3">
-        <h3>Edit Item Page</h3>
-        <form>
-          <div className="row mb-3">
-            <label htmlFor="inputName" className="col-sm-2 col-form-label">
-              Name
-            </label>
-            <div className="col-sm-10">
-              <input
-                value={form.name}
-                onChange={(e) => setform({ ...form, name: e.target.value })}
-                type="text"
-                className="form-control"
-                id="inputName"
-              ></input>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="inputImage" className="col-sm-2 col-form-label">
-              Image
-            </label>
-            <div className="col-sm-10">
-              <input
-                value={form.image}
-                onChange={(e) => setform({ ...form, image: e.target.value })}
-                type="text"
-                className="form-control"
-                id="inputImage"
-              ></input>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="inputReceiving" className="col-sm-2 col-form-label">
-              Receiving
-            </label>
-            <div className="col input-group mb-3">
-              <span className="input-group-text">Rp</span>
-              <input
-                value={form.receiving}
-                onChange={(e) => setform({ ...form, receiving: e.target.value })}
-                type="text"
-                className="form-control text-center"
-                id="inputReceiving"
-              ></input>
-              <span className="input-group-text">.00</span>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="inputCategory" className="col-sm-2 col-form-label">
-              Category
-            </label>
-            <div className="col-sm-10">
-              <input
-                value={form.category}
-                onChange={(e) => setform({ ...form, category: e.target.value })}
-                type="text"
-                className="form-control"
-                id="inputCategory"
-              ></input>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="inputBrands" className="col-sm-2 col-form-label">
-              Brands
-            </label>
-            <div className="col-sm-10">
-              <select
-                value={form.brandId}
-                onChange={(e) => setform({ ...form, brandId: e.target.value })}
-                id="inputBrands"
-                className="form-select"
-              >
-                <option defaultValue>1</option>
-                <option>2</option>
-              </select>
-            </div>
-          </div>
-          <div className="row mb-3">
-            <label htmlFor="inputState" className="col-sm-2 col-form-label">
-              User
-            </label>
-            <div className="col-sm-10">
-              <select
-                value={form.userId}
-                onChange={(e) => setform({ ...form, userId: e.target.value })}
-                id="inputState"
-                className="form-select"
-              >
-                <option defaultValue>1</option>
-                <option>2</option>
-              </select>
-            </div>
-          </div>
-          <button
-            onClick={() => submitHandler()}
-            type="submit"
-            className="btn btn-primary"
-          >
-            Edit Item
-          </button>
-        </form>
-      </div>
-    </>
-  );
+    const params = useParams();
+    const { id } = params;
+
+    const detail = () => {
+        getDetail(+id, (response) => {
+        setForm({
+            name: response.name,
+            image: response.image,
+            receiving: response.receiving,
+            category: response.category,
+            userId: response.userId,
+            brandId: response.brandId,
+        });
+        });
+    };
+
+    useEffect(() => {
+        detail();
+    }, []);
+
+    const submitHandler = (event) => {
+        event.preventDefault()
+        const data = new FormData()
+        data.append("name", form.name)
+        data.append("image", file)
+        data.append("receiving", form.receiving)
+        data.append("category", form.category)
+        data.append("userId", form.userId)
+        data.append("brandId", form.brandId)
+
+        try{
+            console.log(data)
+            updateItem(+id, data)
+            setIsFormSubmitted(true)
+        }
+        catch(err){
+            console.log(err)
+        }
+        // console.log(form);
+        // updateItem(+id, form);
+        // navigation("/");
+    };
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0])
+    }
+
+    const handleInputChange = (event) => { //untuk pemakaian berulang
+        const {name, value} = event.target
+        setForm({...form, [name]: value})
+    }
+
+    return (
+            <>
+                {isFormSubmitted? (
+                    navigation('/')
+                ):(
+                    <form onSubmit={submitHandler}>
+                        <div className="mb-3">
+                        <label className="form-label" htmlFor="name">Name:</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            name='name'
+                            value={form.name} 
+                            onChange={handleInputChange}            
+                        ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Image:</label>
+                            <input 
+                                onChange={handleFileChange}
+                                type="file"
+                                className="form-control"                 
+                            ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" htmlFor="price">Receiving:</label>
+                        <input 
+                            type="date"
+                            className="form-control"
+                            value={form.receiving}
+                            name='receiving'
+                            // onChange={(e) => setForm({...form, price: e.target.value})}
+                            onChange={handleInputChange}                  
+                        ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" htmlFor="category">Category:</label>
+                        <input 
+                            type="text"
+                            className="form-control"
+                            value={form.category}
+                            name='category'
+                            // onChange={(e) => setForm({...form, category: e.target.value})}
+                            onChange={handleInputChange}               
+                        ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" htmlFor="userId">userId:</label>
+                        <input 
+                            type="number"
+                            className="form-control"
+                            value={form.userId}
+                            name='userId'
+                            // onChange={(e) => setForm({...form, userId: e.target.value})}
+                            onChange={handleInputChange}            
+                        ></input>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" htmlFor="brandId">brandId:</label>
+                        <input 
+                            type="number"
+                            className="form-control"
+                            value={form.brandId}
+                            name='brandId'
+                            // onChange={(e) => setForm({...form, brandId: e.target.value})}
+                            onChange={handleInputChange}           
+                        ></input>
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-block btn-primary">
+                                Submit
+                        </button>
+                    </div>                          
+                    </form>
+
+                )
+                }
+            </>
+    );
 };
 
 export default EditItemPage;

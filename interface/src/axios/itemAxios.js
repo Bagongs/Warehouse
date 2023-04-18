@@ -18,11 +18,18 @@ const getAllItem = async (cb) => {
 
 const addItem = async (response) => {
     try {
-      let result = await axios({
-        method: "POST",
-        url: URL,
-        data: response,
-      });
+      // let result = await axios({
+      //   method: "POST",
+      //   url: URL,
+      //   data: response,
+      // });
+      const access_token = localStorage.getItem('access_token')
+      let result = await axios.post(URL, response, {
+        headers:{
+          "Content-Type" : "multipart/form-data",
+          access_token
+        }
+      })
       Swal.fire("Add Item", "Item Has Been Adeed", "success");
       console.log(result.data);
     } catch (err) {
@@ -32,11 +39,16 @@ const addItem = async (response) => {
 
 const updateItem = async (id, response) => {
     try {
-      let result = await axios({
-        method: "PUT",
-        url: URL + "/" + id,
-        data: response,
-      });
+      // let result = await axios({
+      //   method: "PUT",
+      //   url: URL + "/" + id,
+      //   data: response,
+      // });
+      let result = await axios.put(URL+"/"+id, response,{
+        headers:{
+          "Content-Type":"multipart/form-data",
+        }
+      })
       Swal.fire("Edit Item" + id, "Item Has Been Edited", "success");
       console.log(result.data);
     } catch (err) {

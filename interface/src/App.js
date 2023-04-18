@@ -54,19 +54,22 @@ function App() {
             getItemHandler={getItemHandler}
             getBrandHandler={getBrandHandler}
             ></HomePage>:
-            <LoginPage loginHandlerCb={loginHandlerCb}></LoginPage>
+            <Routes>
+              <Route path='/' element={<LoginPage loginHandlerCb={loginHandlerCb}></LoginPage>}></Route>
+              <Route path='/register' element={<RegisterPage></RegisterPage>}></Route>              
+            </Routes>
         }
         {
           <Routes>
             <Route exact path='/'></Route>
             <Route path='/user/show' element={<ProfileUser users={users}/>}></Route>
             <Route path='/item/add' element={<AddItemPage></AddItemPage>}></Route>
-            <Route path='/item/edit/:id' element={<EditItemPage></EditItemPage>}></Route>
+            <Route path='/item/edit/:id' element={<EditItemPage getItemHandler={getItemHandler}></EditItemPage>}></Route>
             <Route path='/item/show' element={<ProfileItem items={items}/>}></Route>
             <Route path='/brand/add' element={<AddBrandPage></AddBrandPage>}></Route>
-            <Route path="/brands/edit/:id" element={<EditBrandPage></EditBrandPage>}></Route>
+            <Route path="/brand/edit/:id" element={<EditBrandPage></EditBrandPage>}></Route>
             <Route path='/brand/show' element={<ProfileBrand brands={brands}/>}></Route>
-            <Route path='/register' element={<RegisterPage></RegisterPage>}></Route>
+            {/* <Route path='/register' element={<RegisterPage></RegisterPage>}></Route> */}
           </Routes>
         }
         {/* {

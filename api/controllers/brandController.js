@@ -57,7 +57,6 @@ class Brand{
                 res.status(404).json({
                     message:`Brand id ${id} is not found`
                 })
-            res.status(200).json(result)           
         }
         catch(err){
             res.status(500).json(err)
