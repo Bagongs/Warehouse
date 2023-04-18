@@ -3,6 +3,7 @@ const {tokenVerified} = require('../helpers/jsonwebtoken')
 const authentication = (req, res, next) => {
     console.log('middleware of auth is activate')
     const access_token = req.headers.access_token
+    console.log(req.headers)
 
     if(access_token){
         console.log('token is gotten')

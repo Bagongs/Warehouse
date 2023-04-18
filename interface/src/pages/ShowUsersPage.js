@@ -1,5 +1,6 @@
 import React from "react";
 import { deleteUser } from "../axios/userAxios";
+import { Link } from "react-router-dom";
 
 const ProfileUser = (props) => {
     const { users } = props
@@ -31,7 +32,14 @@ const ProfileUser = (props) => {
                                     <img src={photo} width={"20%"}></img>
                                 </td>
                                 <td>{status}</td>
-                                <td>                
+                                <td>
+                                    {/* <button className="btn">
+                                        <Link
+                                        to={`/user/edit/${id}`}
+                                        className="btn btn-sm btn-warning mt-2 mx-2">
+                                            Edit
+                                        </Link>
+                                    </button>    */}
                                     <button
                                     type="button"
                                     id="delete"

@@ -9,30 +9,8 @@ const LoginPage = (props) => {
         password:''
     })
 
-    // const navigate = useNavigate() //agar tidak perlu refresh untuk ke home
-
-    // const loginUser = async (formLogin, loginHandlerCb) => {
-    //     try{
-    //         console.log('up')
-    //         let result = await axios({
-    //             method:'POST',
-    //             url:'http://localhost:3000/api/users/login',
-    //             data:formLogin
-    //         })
-    //         // console.log(result.data)
-    //         const access_token = result.data.access_token
-    //         localStorage.setItem('access_token', access_token)
-    //         // navigate('/')
-    //         loginHandlerCb(true)
-    //     }
-    //     catch(err){
-    //         console.log(err)
-    //     }
-    // }
-
     const submitLoginHandler = () => {
         loginUser(formLogin, loginHandlerCb)
-        // console.log(formLogin)
 
     }
 
